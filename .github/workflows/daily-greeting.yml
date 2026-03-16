@@ -28,4 +28,5 @@ jobs:
           WECHAT_SECRET: ${{ secrets.WECHAT_SECRET }}
           WECHAT_USER_ID: ${{ secrets.WECHAT_USER_ID }}
           WECHAT_TEMPLATE_ID: ${{ secrets.WECHAT_TEMPLATE_ID }}
+          PLUS_SENTENCE: ${{ secrets.PLUS_SENTENCE }}
         run: uv run python -m ybot.send_now

@@ -55,7 +55,7 @@ def main() -> None:
     payload = {
         "user_id": user_id,
         "template_id": template_id,
-        "data": {"plus_sentence": {"value": "Hi!"}},
+        "data": {"plus_sentence": {"value": os.environ.get("PLUS_SENTENCE", "Hi!")}},
     }
 
     svc = Service()

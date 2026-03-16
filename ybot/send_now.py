@@ -27,7 +27,7 @@ payload = {
         "beijing_time": {"value": now_beijing.strftime("%Y-%m-%d %H:%M:%S")},
         "wlafayette_weather": {"value": wlafayette_weather()},
         "hangzhou_weather": {"value": hangzhou_weather()},
-        "plus_sentence": {"value": "Hi!"},
+        "plus_sentence": {"value": os.environ.get("PLUS_SENTENCE", "Hi!")},
     },
 }
 
