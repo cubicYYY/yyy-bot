@@ -9,7 +9,12 @@ from densho_bato.dispatchers.base import Dispatcher
 from densho_bato.schedulers import Cron
 from dotenv import load_dotenv
 
-from ybot.weather import hangzhou_aqi, hangzhou_weather, wlafayette_aqi, wlafayette_weather
+from ybot.weather import (
+    hangzhou_aqi,
+    hangzhou_weather,
+    wlafayette_aqi,
+    wlafayette_weather,
+)
 
 load_dotenv()
 

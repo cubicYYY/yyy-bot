@@ -7,7 +7,12 @@ from zoneinfo import ZoneInfo
 from densho_bato.dispatchers import WeChatDispatcher
 from dotenv import load_dotenv
 
-from ybot.weather import hangzhou_aqi, hangzhou_weather, wlafayette_aqi, wlafayette_weather
+from ybot.weather import (
+    hangzhou_aqi,
+    hangzhou_weather,
+    wlafayette_aqi,
+    wlafayette_weather,
+)
 
 load_dotenv()
 
