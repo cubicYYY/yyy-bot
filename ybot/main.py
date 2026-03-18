@@ -18,12 +18,8 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
 )
 
-LOCAL_TZ = ZoneInfo(
-    os.environ.get("LOCAL_TIMEZONE", "America/Indiana/Indianapolis")
-)
-REMOTE_TZ = ZoneInfo(
-    os.environ.get("REMOTE_TIMEZONE", "Asia/Shanghai")
-)
+LOCAL_TZ = ZoneInfo(os.environ.get("LOCAL_TIMEZONE", "America/Indiana/Indianapolis"))
+REMOTE_TZ = ZoneInfo(os.environ.get("REMOTE_TIMEZONE", "Asia/Shanghai"))
 CITIES = parse_cities(
     os.environ.get(
         "CITIES",
@@ -79,9 +75,7 @@ def main() -> None:
     user_id = os.environ["WECHAT_USER_ID"]
     template_id = os.environ["WECHAT_TEMPLATE_ID"]
 
-    dispatcher = DynamicDispatcher(
-        WeChatDispatcher(appid=appid, secret=secret)
-    )
+    dispatcher = DynamicDispatcher(WeChatDispatcher(appid=appid, secret=secret))
     scheduler = Cron(SCHEDULE, tz=REMOTE_TZ)
 
     payload = {

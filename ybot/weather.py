@@ -58,9 +58,7 @@ def parse_cities(raw: str) -> list[City]:
     cities = []
     for entry in raw.split(";"):
         name, lat, lon = entry.strip().split(",")
-        cities.append(
-            City(name=name.strip(), lat=float(lat), lon=float(lon))
-        )
+        cities.append(City(name=name.strip(), lat=float(lat), lon=float(lon)))
     return cities
 
 

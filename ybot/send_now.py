@@ -11,12 +11,8 @@ from ybot.weather import get_aqi, get_weather, parse_cities
 
 load_dotenv()
 
-local_tz = ZoneInfo(
-    os.environ.get("LOCAL_TIMEZONE", "America/Indiana/Indianapolis")
-)
-remote_tz = ZoneInfo(
-    os.environ.get("REMOTE_TIMEZONE", "Asia/Shanghai")
-)
+local_tz = ZoneInfo(os.environ.get("LOCAL_TIMEZONE", "America/Indiana/Indianapolis"))
+remote_tz = ZoneInfo(os.environ.get("REMOTE_TIMEZONE", "Asia/Shanghai"))
 cities = parse_cities(
     os.environ.get(
         "CITIES",

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Auto-format staged Python files with ruff before committing
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM -- '*.py')
+if [ -z "$STAGED" ]; then
+    exit 0
+fi
+
+uv run ruff format $STAGED
+uv run ruff check --fix $STAGED
+
+# Re-stage the formatted files
+echo "$STAGED" | xargs git add
+
+exit 0
