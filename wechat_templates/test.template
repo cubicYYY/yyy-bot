@@ -1,5 +1,5 @@
-当地时间：{{local_time.DATA}}
 北京时间：{{remote_time.DATA}}
+当地时间：{{local_time.DATA}}
 
 今日天气：
    - {{city1_name.DATA}}：{{city1_weather.DATA}}

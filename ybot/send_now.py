@@ -8,14 +8,14 @@ from zoneinfo import ZoneInfo
 from densho_bato.dispatchers import WeChatDispatcher
 from dotenv import load_dotenv
 
-from ybot.weather import get_aqi, get_weather, parse_cities
+from ybot.weather import format_datetime, get_aqi, get_weather, parse_cities
 
 load_dotenv()
 
 local_tz = ZoneInfo(os.environ.get("LOCAL_TIMEZONE") or "America/Indiana/Indianapolis")
 remote_tz = ZoneInfo(os.environ.get("REMOTE_TIMEZONE") or "Asia/Shanghai")
 cities = parse_cities(
-    os.environ.get("CITIES") or "西拉法叶,40.4259,-86.9081;杭州,30.2741,120.1551"
+    os.environ.get("CITIES") or "杭州,30.2741,120.1551;西拉法叶,40.4259,-86.9081"
 )
 
 dispatcher = WeChatDispatcher(
@@ -28,10 +28,10 @@ now_remote = datetime.now(remote_tz)
 
 data: dict = {
     "local_time": {
-        "value": now_local.strftime("%Y-%m-%d %H:%M:%S"),
+        "value": format_datetime(now_local),
     },
     "remote_time": {
-        "value": now_remote.strftime("%Y-%m-%d %H:%M:%S"),
+        "value": format_datetime(now_remote),
     },
     "plus_sentence": {
         "value": os.environ.get("PLUS_SENTENCE")

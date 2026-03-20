@@ -9,7 +9,7 @@ from densho_bato.dispatchers.base import Dispatcher
 from densho_bato.schedulers import Cron
 from dotenv import load_dotenv
 
-from ybot.weather import get_aqi, get_weather, parse_cities
+from ybot.weather import format_datetime, get_aqi, get_weather, parse_cities
 
 load_dotenv()
 
@@ -21,7 +21,7 @@ logging.basicConfig(
 LOCAL_TZ = ZoneInfo(os.environ.get("LOCAL_TIMEZONE") or "America/Indiana/Indianapolis")
 REMOTE_TZ = ZoneInfo(os.environ.get("REMOTE_TIMEZONE") or "Asia/Shanghai")
 CITIES = parse_cities(
-    os.environ.get("CITIES") or "西拉法叶,40.4259,-86.9081;杭州,30.2741,120.1551"
+    os.environ.get("CITIES") or "杭州,30.2741,120.1551;西拉法叶,40.4259,-86.9081"
 )
 
 
@@ -49,10 +49,10 @@ class DynamicDispatcher(Dispatcher):
         data = {
             **payload["data"],
             "local_time": {
-                "value": now_local.strftime("%Y-%m-%d %H:%M:%S"),
+                "value": format_datetime(now_local),
             },
             "remote_time": {
-                "value": now_remote.strftime("%Y-%m-%d %H:%M:%S"),
+                "value": format_datetime(now_remote),
             },
         }
         for i, city in enumerate(CITIES, 1):

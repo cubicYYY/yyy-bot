@@ -1,6 +1,7 @@
 """Fetch weather and AQI from Open-Meteo (free, no API key required)."""
 
 from dataclasses import dataclass
+from datetime import datetime
 
 import requests
 
@@ -44,6 +45,14 @@ AQI_LEVEL_ZH = {
     (201, 300): "重度污染",
     (301, 500): "危险",
 }
+
+
+WEEKDAY_ZH = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
+
+
+def format_datetime(dt: datetime) -> str:
+    """Format datetime as '2026-03-19 08:01:06 星期四'."""
+    return f"{dt.strftime('%Y-%m-%d %H:%M:%S')} {WEEKDAY_ZH[dt.weekday()]}"
 
 
 @dataclass
