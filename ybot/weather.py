@@ -4,6 +4,8 @@ from dataclasses import dataclass
 from datetime import datetime
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 WMO_ZH = {
     0: "晴",
@@ -50,6 +52,15 @@ AQI_LEVEL_ZH = {
 WEEKDAY_ZH = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"]
 
 
+def _session() -> requests.Session:
+    """Build a requests session with automatic retries on transient errors."""
+    s = requests.Session()
+    retry = Retry(total=3, backoff_factor=1, status_forcelist=[502, 503, 504])
+    adapter = HTTPAdapter(max_retries=retry)
+    s.mount("https://", adapter)
+    return s
+
+
 def format_datetime(dt: datetime) -> str:
     """Format datetime as '2026-03-19 08:01:06 星期四'."""
     return f"{dt.strftime('%Y-%m-%d %H:%M:%S')} {WEEKDAY_ZH[dt.weekday()]}"
@@ -73,7 +84,7 @@ def parse_cities(raw: str) -> list[City]:
 
 def get_weather(lat: float, lon: float) -> str:
     """Return weather string like '晴 5°C （最高12°C 最低-1°C）'."""
-    resp = requests.get(
+    resp = _session().get(
         "https://api.open-meteo.com/v1/forecast",
         params={
             "latitude": lat,
@@ -107,7 +118,7 @@ def _aqi_label(aqi: int) -> str:
 
 def get_aqi(lat: float, lon: float) -> str:
     """Return AQI string like 'AQI 42 （优）'."""
-    resp = requests.get(
+    resp = _session().get(
         "https://air-quality-api.open-meteo.com/v1/air-quality",
         params={
             "latitude": lat,
